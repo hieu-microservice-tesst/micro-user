@@ -9,7 +9,7 @@ export class UserService {
   constructor() {
     this.prisma = new PrismaClient();
   }
-
+  
   async createUser(data: { 
     email: string; 
     name: string; 
