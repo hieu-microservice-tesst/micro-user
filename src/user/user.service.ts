@@ -30,9 +30,11 @@ export class UserService {
     return this.prisma.user.findMany();
   }
 
-  async getUserById(id: number): Promise<User | null> {
-    return this.prisma.user.findUnique({ where: { id } });
-  }
+  async getUserById(id: number): Promise<User | null> { 
+    return this.prisma.user.findUnique(
+      { where: { id: Number(id) }})
+    }
+
 
   async updateUser(id: number, data: Partial<User>): Promise<User> {
     if (data.password) {
@@ -40,12 +42,12 @@ export class UserService {
     }
 
     return this.prisma.user.update({
-      where: { id },
+      where: { id: Number(id) },
       data,
     });
   }
 
   async deleteUser(id: number): Promise<User> {
-    return this.prisma.user.delete({ where: { id } });
+    return this.prisma.user.delete({ where: { id: Number(id) } });
   }
 }
