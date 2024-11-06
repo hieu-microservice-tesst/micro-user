@@ -13,7 +13,7 @@ async function bootstrap() {
     },
   });
 
-  await app.startAllMicroservices();
+  app.startAllMicroservices().catch(error => console.error('Microservice error:', error));
   await app.listen(3001);
 }
 
