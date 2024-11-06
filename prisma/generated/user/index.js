@@ -162,13 +162,13 @@ const config = {
   "inlineDatasources": {
     "db": {
       "url": {
-        "fromEnvVar": "USER_DATABASE_URL",
+        "fromEnvVar": "USER_DATABASE_URL_PRISMA_URL",
         "value": null
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"./generated/user\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"USER_DATABASE_URL\")\n}\n\nenum Role {\n  user\n  admin\n}\n\nmodel User {\n  id        Int      @id @default(autoincrement())\n  email     String   @unique\n  name      String\n  username  String   @unique\n  password  String\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n  role      Role     @default(user)\n}\n",
-  "inlineSchemaHash": "d81da544e4abf83f2dfd731ee459ba107bd7460b19910904febebea292802794",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"./generated/user\"\n}\n\ndatasource db {\n  provider  = \"postgresql\"\n  url       = env(\"USER_DATABASE_URL_PRISMA_URL\") // uses connection pooling\n  directUrl = env(\"USER_DATABASE_URL_URL_NON_POOLING\") // uses a direct connection\n}\n\nenum Role {\n  user\n  admin\n}\n\nmodel User {\n  id        Int      @id @default(autoincrement())\n  email     String   @unique\n  name      String\n  username  String   @unique\n  password  String\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n  role      Role     @default(user)\n}\n",
+  "inlineSchemaHash": "4a8d74d50f0ed147c27a1c3f0823ce7467c936a6fc7021362e822909fcd85889",
   "copyEngine": true
 }
 
